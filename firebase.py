@@ -74,13 +74,14 @@ def create_post(userID, title, content, font='monospace'):
                 'title': str(title),
                 'content': str(content),
                 'date': datetime.now(),
-                'views': 0               # init views to 0
+                'views': 0,               # init views to 0
+                'id': ''
             }
             if font:
                 post_data['font'] = font
             post_ref = db.collection('Posts').add(post_data)
             post_id = post_ref[1].id        # got the document reference ID  # post_ref.id
-            post_ref = db.collection('Posts').add({'id': 'post_id'})
+            post_ref[1].update({'id': post_id})        # add an 'id' field to the post
             return post_id
         else:
             print ("Please fill in all fields")
