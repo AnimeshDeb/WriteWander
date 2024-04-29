@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            padding-top: 20px; /* Height of navbar plus some extra space */
+            font-family: monospace;
+            background-image: url('https://images.rawpixel.com/image_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjgwNS1rdWwtMDguanBn.jpg');
+            color: #333;
+        }
+        .header {
+            padding: 30px;
+            font-size: 2rem;
+            text-align: center;
+            background: white;
+        }
+        .navbar {
+            position: sticky;
+            top: 0;
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        /* main content */
+        .row {
+            display: flex;
+            gap: 20px;
+            margin: 20px;
+        }
+        .left-column,
+        .right-column {
+            flex: 1;
+        }
+        /* posts content */
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 15px;
+            width: calc(100% - 30px);
+        }
+        .card a {
+            color: #333;
+            text-decoration: none;
+        }
+        .card a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .card-img {
+            background-color: #aaa; /* sample gray 'Image' placeholder */
+            width: 100%;
+            height: 200px;
+            border-radius: 4px;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .card-author {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .card-content {
+            font-size: 1rem;
+            color: #333;
+        }
+        /* maybe the footer is too big/flashy? */
+        .footer {
+            bottom: 0;
+            background: #ddd;
+            padding: 10px;
+            font-size: 1rem;
+            text-align: center;
+        }
+    </style>
+    <title>WriteWander</title>
+  </head>
+
+  <body>
+    <div class="header"><h2>HOME HTML</h2></div>
+    <div class="navbar">
+        <a href="/search">Search</a>
+        <a href="/discuss">Discuss</a>
+        <a href="/">Home</a>
+        <a href="/create">Create</a>
+        <a href="/manage">Manage</a>
+        <a href="/login">Login</a>
+    </div>
+
+    <div id="root"></div>
+    
+    <div class="row">
+        <div class="left-column">
+            <h2>Recent Posts</h2>
+            <div id="recent-posts">
+                {% for post in recent_posts %}
+                <div class="card">
+                    <a href="/id/{{ post.id }}"> <!-- redirects to each post's page -->
+                        <div class="card-img">Image Placeholder</div>
+                        <div class="card-title">{{ post.title }}</div>
+                        <div class="card-author">Author: {{ post.author }}</div>
+                        <div class="card-content">
+                            <p>Views: {{ post.views }}</p>
+                            {{ post.content | truncate(100) }} <!-- limit to 100 chars -->
+                            <a href="/id/{{ post.id }}"><p>Read more</p></a>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>            
+        </div>
+        <div class="right-column">
+            <h2>Popular Posts</h2>
+            <div id="popular-posts">
+                {% for post in popular_posts %}
+                <div class="card">
+                    <a href="/id/{{ post.id }}"> <!-- redirects to each post's page -->
+                        <div class="card-img">Image Placeholder</div>
+                        <div class="card-title">{{ post.title }}</div>
+                        <div class="card-author">Author: {{ post.author }}</div>
+                        <div class="card-content">
+                            <p>Views: {{ post.views }}</p>
+                            {{ post.content | truncate(100) }} <!-- limit to 100 chars -->
+                            <a href="/id/{{ post.id }}"><p>Read more</p></a>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>            
+        </div>
+    </div>
+    
+    <div class="footer">
+        <h2>Footer</h2>
+    </div>
+
+</body>
+</html>

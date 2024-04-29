@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write! -Wander!</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            padding: 30px;
+            font-size: 2rem;
+            text-align: center;
+            background: white;
+        }
+        .navbar {
+            position: sticky;
+            top: 0;
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        body {
+            padding-top: 20px;
+            font-family: monospace;
+            color: #333;
+            background-image: url('https://images.rawpixel.com/image_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjgwNS1rdWwtMDguanBn.jpg');
+            background-size: cover;
+            position: relative;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent off-white */
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 70%;
+            margin: 30px auto; 
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-family: monospace;
+        }
+        .card-date {
+            font-size: 1rem;
+            font-family: monospace;
+        }
+        .card-views {
+            font-size: 1rem;
+            font-family: monospace;
+        }
+        .card-author {
+            font-size: 1rem;
+            font-family: monospace;
+        }
+        .card-content {
+            font-family: "{{ post.font }}";
+        }
+        .footer {
+            bottom: 0;
+            background: #ddd;
+            padding: 10px;
+            font-size: 1rem;
+            text-align: center;
+        }
+        .create-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .create-form input,
+        .create-form textarea,
+        .create-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .create-form select {
+            font-family: monospace; /* Set font for select element */
+        }
+        .create-form input[type="submit"] {
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <div class="header"><h2>CREATE HTML</h2></div>
+    <div class="navbar">
+        <a href="/search">Search</a>
+        <a href="/discuss">Discuss</a>
+        <a href="/">Home</a>
+        <a href="/create">Create</a>
+        <a href="/manage">Manage</a>
+        <a href="/login">Login</a>
+    </div>
+
+    <div id="create-root" class="card"></div> 
+    <div class="create-form">
+    <form id="post-form" method="POST" action="/create">
+            <input type="text" name="title" placeholder="Enter title" required>
+            <textarea name="content" placeholder="Enter content" required></textarea>
+            <select name="font">
+                <option value="monospace">Monospace</option>
+                <option value="serif">Serif</option>
+                <option value="sans-serif">Sans-serif</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Helvetica">Helvetica</option>
+                <option value="Arial">Arial</option>
+                <option value="Cambria">Cambria</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Geneva">Geneva</option>
+                <option value="Impact">Impact</option>
+                <option value="fantasy">fantasy</option>
+                <option value="cursive">cursive</option>
+            </select>
+            <input type="submit" value="Create Post">
+    </form>
+    </div>
+</body>
+</html>
