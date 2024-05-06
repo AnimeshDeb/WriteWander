@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ post.title }}</title>
+    <title>{{ post.title }} | WriteWander</title>
     <style>
         * {
             box-sizing: border-box;
@@ -72,6 +72,8 @@
         }
         .card-content {
             font-family: "{{ post.font }}";
+            font-size: 1rem;
+            padding-top: 10px;
         }
         .footer {
             bottom: 0;
@@ -84,8 +86,8 @@
 </head>
 
 <body>
+    <div id="root"></div>
     <div class="header"><h2>POST HTML</h2></div>
-
         <div class="navbar">
             <a href="/search">Search</a>
             <a href="/discuss">Discuss</a>
@@ -97,7 +99,7 @@
         <div id="view-post" class="card">
             <h1 class="card-title">{{ post.title }}</h1>
             <p class="card-author">Author: {{ post.author }}</p>
-            <p class="card-date">Date: {{ post.date }}</p>
+            <p class="card-date">Date: {{ post.date.strftime('%Y-%m-%d') }}</p>
             <p class="card-views">Views: {{ post.views }}</p>
             <div class="card-content">
                 {{ post.content }}

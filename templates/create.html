@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Write! -Wander!</title>
+    <title>CREATE | WriteWander</title>
     <style>
         * {
             box-sizing: border-box;
@@ -84,15 +84,30 @@
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 1px solid #ddd;
+            background-image:
+                linear-gradient(rgba(243, 239, 223, 0.9), 
+                rgba(248, 245, 243, 0.9)), 
+                url('https://static.vecteezy.com/system/resources/thumbnails/008/807/149/small_2x/coffee-stain-background-free-vector.jpg');
+            background-size: cover;
+            background-position: center; 
+            border: 3px solid #ddd;
             border-radius: 4px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
         }
         .create-form input,
-        .create-form textarea,
         .create-form select {
             width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .create-form textarea {
+            width: 100%;
+            min-height: 180px;
+            height: fit-content;
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ddd;
@@ -111,7 +126,7 @@
 
 <body>
     <div id="root"></div>
-    <div class="header"><h2>CREATE HTML</h2></div>
+    <div class="header"><h2>CREATE</h2></div>
     <div class="navbar">
         <a href="/search">Search</a>
         <a href="/discuss">Discuss</a>
@@ -121,29 +136,30 @@
         <a href="/login">Login</a>
     </div>
 
-    <div id="create-root" class="card"></div> 
-    <div class="create-form">
-    <form id="post-form" method="POST" action="/create">
-            <input type="text" name="title" placeholder="Enter title" required>
-            <textarea name="content" placeholder="Enter content" required></textarea>
-            <select name="font">
-                <option value="monospace">Monospace</option>
-                <option value="serif">Serif</option>
-                <option value="sans-serif">Sans-serif</option>
-                <option value="Courier New">Courier New</option>
-                <option value="Verdana">Verdana</option>
-                <option value="Helvetica">Helvetica</option>
-                <option value="Arial">Arial</option>
-                <option value="Cambria">Cambria</option>
-                <option value="Georgia">Georgia</option>
-                <option value="Tahoma">Tahoma</option>
-                <option value="Geneva">Geneva</option>
-                <option value="Impact">Impact</option>
-                <option value="fantasy">fantasy</option>
-                <option value="cursive">cursive</option>
-            </select>
-            <input type="submit" value="Create Post">
-    </form>
+    <div id="create-root" class="card">
+        <div class="create-form">
+        <form id="post-form" method="POST" action="/create">
+                <input type="text" name="title" placeholder="Enter title" required>
+                <textarea name="content" placeholder="Enter content" required></textarea>
+                <select name="font">
+                    <option value="monospace">Monospace</option>
+                    <option value="serif">Serif</option>
+                    <option value="sans-serif">Sans-serif</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Helvetica">Helvetica</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Cambria">Cambria</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Tahoma">Tahoma</option>
+                    <option value="Geneva">Geneva</option>
+                    <option value="Impact">Impact</option>
+                    <option value="fantasy">fantasy</option>
+                    <option value="cursive">cursive</option>
+                </select>
+                <input type="submit" value="Create Post">
+        </form>
+        </div> 
     </div>
 </body>
 </html>

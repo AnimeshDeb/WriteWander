@@ -40,25 +40,49 @@
             background-color: #ddd;
             color: black;
         }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
         /* main content */
         .row {
-            display: flex;
-            gap: 20px;
-            margin: 20px;
+            display: block;
+            margin: 40px;
         }
-        .left-column,
-        .right-column {
-            flex: 1;
+        h2 {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #333;
+            text-shadow: 1px 1px 2px #bbb;
         }
         /* posts content */
         .card {
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.9);
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 15px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             padding: 15px;
-            width: calc(100% - 30px);
+            min-width: 250px;
+            max-width: 450px;
+            flex: 0 0 auto;
+        }
+        .card-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 0 20px;
         }
         .card a {
             color: #333;
@@ -70,22 +94,24 @@
         }
         .card-img {
             background-color: #aaa; /* sample gray 'Image' placeholder */
-            width: 100%;
-            height: 200px;
+            height: 150px;
             border-radius: 4px;
         }
         .card-title {
             font-size: 1.5rem;
             margin-bottom: 10px;
+            padding: 5px 10px;
         }
         .card-author {
             font-size: 1rem;
             color: #666;
             margin-bottom: 10px;
+            padding: 5px 10px;
         }
         .card-content {
             font-size: 1rem;
             color: #333;
+            padding: 5px 10px;
         }
         /* maybe the footer is too big/flashy? */
         .footer {
@@ -96,11 +122,11 @@
             text-align: center;
         }
     </style>
-    <title>WriteWander</title>
+    <title>HOME | WriteWander</title>
   </head>
 
   <body>
-    <div class="header"><h2>HOME HTML</h2></div>
+    <div class="header"><h2>WriteWander</h2></div>
     <div class="navbar">
         <a href="/search">Search</a>
         <a href="/discuss">Discuss</a>
@@ -115,7 +141,7 @@
     <div class="row">
         <div class="left-column">
             <h2>Recent Posts</h2>
-            <div id="recent-posts">
+            <div id="recent-posts" class="card-container">
                 {% for post in recent_posts %}
                 <div class="card">
                     <a href="/id/{{ post.id }}"> <!-- redirects to each post's page -->
@@ -134,7 +160,7 @@
         </div>
         <div class="right-column">
             <h2>Popular Posts</h2>
-            <div id="popular-posts">
+            <div id="popular-posts" class="card-container">
                 {% for post in popular_posts %}
                 <div class="card">
                     <a href="/id/{{ post.id }}"> <!-- redirects to each post's page -->

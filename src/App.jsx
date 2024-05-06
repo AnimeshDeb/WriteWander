@@ -8,11 +8,6 @@ import DiscussPage from "./DiscussPage";
 import SearchPage from "./SearchPage";
 import ManagePage from "./ManagePage";
 import PostView from './PostView';
-import AllPosts from './AllPosts';
-
-// render React components, dynamic content
-// "App" global styles or layouts
-// "root" main components
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -26,7 +21,6 @@ createRoot(document.getElementById('root')).render(
               <Route path="/search" component={SearchPage} />
               <Route path="/manage" component={ManagePage} />
               <Route path="/id/:post_id" component={PostView} />
-              <Route path="/all" component={AllPosts} />
             </Switch>
           </div>
         </div>
