@@ -17,12 +17,6 @@ def get_user_id_from_auth(token):
         print("Error verifying ID token:", e)
         return None
 
-# ?
-def get_all_posts():
-    got = db.collection('Posts').stream()
-    posts_list = [doc.to_dict() for doc in got]
-    print(f"{posts_list}")
-    return posts_list
 # ✓ 
 def get_recent_posts():
     got = db.collection('Posts').order_by("date", direction=firestore.Query.DESCENDING).limit(15).stream()
@@ -33,14 +27,6 @@ def get_popular_posts():
     got = db.collection('Posts').order_by("views", direction=firestore.Query.DESCENDING).limit(15).stream()
     posts_list = [doc.to_dict() for doc in got]
     return posts_list
-# ?
-def get_user_posts(user_id):
-    try:
-        got =  db.collection('Posts').where(filter=FieldFilter(field_path="userID", op_string="==", value=user_id)).stream()
-        posts_list = [doc.to_dict() for doc in got]
-        return posts_list
-    except Exception as e:
-        return f"Error fetching posts for User #{user_id}: {str(e)}", 500
 
 # GET A POST BY ID ✓ (object/document reference id as a saved field value?)
 def get_post_by_post_id(post_id):
@@ -53,16 +39,59 @@ def get_post_by_post_id(post_id):
         print(f"Error retrieving post {post_id}: {str(e)}")
         return None
 
-# SEARCH FOR POSTS BY POST/UPLOAD DATE
-def search_posts_by_date(year=None, month=None, day=None):
-    query = db.collection('Posts')
-    if year:
-        query = query.where(filter=FieldFilter(field_path="date.year", op_string="==", value=year))
-    if month:
-        query = query.where(filter=FieldFilter(field_path="date.month", op_string="==", value=month))
-    if day:
-        query = query.where(filter=FieldFilter(field_path="date.day", op_string="==", value=day))
-    return query.stream()
+# ✓ 
+def search_posts(author=None, title=None, post_id=None, by_views=False, by_date=False):
+    print(f"Searching for author: {author}, title: {title}, id: {post_id}, by views: {by_views}, by date: {by_date}")
+    posts_ref = db.collection('Posts')
+    query_ref = posts_ref
+
+    if author:
+        query_ref = query_ref.where("author", "==", author)
+        print(f"{query_ref} -- AUTHOR")
+    if title:
+        query_ref = query_ref.where("title", "==", title)
+        print(f"{query_ref} -- TITLE")
+    if post_id:
+        query_ref = query_ref.where("id", "==", post_id)
+        print(f"{query_ref} -- POST #ID")
+
+    results = []
+    try:
+        docs = query_ref.get()
+        for doc in docs:
+            if isinstance(doc, firestore.firestore.DocumentSnapshot):
+                results.append(doc.to_dict())
+            else:
+                print(f"Unexpected document type: {type(doc)}")
+    except Exception as e:
+        print(f"Error fetching documents: {e}")
+
+    if by_views:
+        results.sort(key=lambda x: x['views'], reverse=True)
+    if by_date:
+        results.sort(key=lambda x: x['date'], reverse=True)
+
+    print(f"Total posts found: {len(results)}")
+    return results
+
+# ?
+def get_all_posts():
+    try:
+        got = db.collection('Posts').order_by("date", direction=firestore.Query.ASCENDING).stream() 
+        posts_list = [doc.to_dict() for doc in got]
+        return posts_list
+    except Exception as e:
+        return f"Error fetching all posts from database: {str(e)}", 500
+
+# ?
+def get_user_posts(user_id):
+    try:
+        got =  db.collection('Posts').where(filter=FieldFilter(field_path="userID", op_string="==", value=user_id)).stream()
+        posts_list = [doc.to_dict() for doc in got]
+        return sorted(posts_list, key=lambda x: x['date'], reverse=True)
+    except Exception as e:
+        return f"Error fetching posts for User #{user_id} from database: {str(e)}", 500
+
 
 # CREATE A POST ✓ (saves object/doc reference ID as field value 'id')
 def create_post(userID, title, content, font='monospace'):
