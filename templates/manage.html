@@ -42,7 +42,6 @@
             background-image: url('https://images.rawpixel.com/image_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjgwNS1rdWwtMDguanBn.jpg');
             position: relative;
             min-height: 100vh;
-            margin: 0;
         }
         .card {
             background-image: 
@@ -82,11 +81,17 @@
         .card-buttons {
             display: flex;
             justify-content: center;
+            align-items: center;
             width: 100%;
             border-radius: 4px;
         }
         .card-body {
             padding: 15px;
+            background-image: 
+                linear-gradient(rgba(253, 242, 233, 0.9), 
+                rgba(253, 242, 233, 0.9)), 
+                url('https://static.vecteezy.com/system/resources/thumbnails/008/807/149/small_2x/coffee-stain-background-free-vector.jpg');
+            border: #333;
         }
         .card-footer {
             text-align: right;
@@ -114,6 +119,15 @@
         .button:hover {
             background-color: #ddd;
             color: black;
+        }
+        .button.edit:hover {
+            background-color: #60BD89;
+        }
+        .button.delete:hover {
+            background-color: #FA8072;
+        }
+        .button.view:hover {
+            background-color: #ddd;
         }
         @keyframes darkenAndCollapse {
             0%, 50% {
@@ -168,14 +182,18 @@
                         <div class="card-footer">
                             <div class="card-buttons">
                                 <div class="button-container">
+                                    <a href="/id/{{ post.id }}" class="button view">View</a>
+                                </div>                                
+
+                                <div class="button-container">
                                     <form action="/edit/{{post.id}}" method="GET">
-                                        <input type="submit" value="Edit" class="button">
+                                        <input type="submit" value="Edit" class="button edit">
                                     </form>
                                 </div>
                                 
                                 <div class="button-container">
                                     <form action="/delete/{{post.id}}" method="POST">
-                                        <input type="submit" value="Delete" class="button">
+                                        <input type="submit" value="Delete" class="button delete">
                                     </form>
                                 </div>
                             </div>

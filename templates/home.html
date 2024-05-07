@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -10,16 +11,28 @@
             padding: 0;
         }
         body {
-            padding-top: 20px; /* Height of navbar plus some extra space */
+            padding: 20px; /* Height of navbar plus some extra space */
             font-family: monospace;
-            background-image: url('https://images.rawpixel.com/image_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjgwNS1rdWwtMDguanBn.jpg');
             color: #333;
+            background-image:
+                linear-gradient(rgba(243, 239, 223, 0.9), 
+                rgba(248, 245, 243, 0.9)), 
+                url('https://static.vecteezy.com/system/resources/thumbnails/008/807/149/small_2x/coffee-stain-background-free-vector.jpg');
+            
         }
         .header {
             padding: 30px;
             font-size: 2rem;
             text-align: center;
             background: white;
+        }
+        h3 {
+            font-size: 1.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 20px;
         }
         .navbar {
             position: sticky;
@@ -40,6 +53,22 @@
             background-color: #ddd;
             color: black;
         }
+        .image-text {
+            width: 100%;
+            height: 220px;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            font-size: 2em;
+            font-family: monospace;
+            text-align: center;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+        }
+        /* main content */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -55,34 +84,64 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
-        /* main content */
-        .row {
-            display: block;
-            margin: 40px;
+        .trending {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 20px 0;
+            margin: 0 20px;
         }
-        h2 {
-            font-size: 1rem;
-            margin-bottom: 20px;
-            color: #333;
-            text-shadow: 1px 1px 2px #bbb;
+        .trending .card {
+            display: inline-block;
+            width: 250px;
+            height: 350px;
+            margin-right: 15px;
+            box-sizing: border-box;
+            white-space: normal;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+        .whats-new {
+            padding: 20px 0;
+            white-space: nowrap;
+        }
+        .whats-new .card {
+            width: 250px;
+            height: 350px;
+            margin-right: 15px;
+            white-space: normal;
+            box-sizing: border-box;
+            padding: 0 20px;
+        }
+        .whats-new .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Create a responsive grid */
         }
         /* posts content */
         .card {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-image: 
+                linear-gradient(rgba(253, 242, 233, 0.9), 
+                rgba(253, 242, 233, 0.9)), 
+                url('https://static.vecteezy.com/system/resources/thumbnails/008/807/149/small_2x/coffee-stain-background-free-vector.jpg');
+            background-size: cover;
+            background-position: center;
             border: 1px solid #ddd;
             border-radius: 15px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            padding: 15px;
-            min-width: 250px;
-            max-width: 450px;
-            flex: 0 0 auto;
+            margin: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .card-container {
-            display: flex;
-            overflow-x: auto;
-            gap: 20px;
-            padding: 0 20px;
+            gap: 15px;
+            padding: 5 10px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 0.8rem;
+            margin-left: 50px;
+            margin-right: 50px;
+            margin-bottom: 50px;
         }
         .card a {
             color: #333;
@@ -94,32 +153,35 @@
         }
         .card-img {
             background-color: #aaa; /* sample gray 'Image' placeholder */
-            height: 150px;
             border-radius: 4px;
+            width: 100%;
+            height: 120px;
+            margin-top: 20px;
         }
         .card-title {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             margin-bottom: 10px;
             padding: 5px 10px;
         }
         .card-author {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #666;
             margin-bottom: 10px;
             padding: 5px 10px;
         }
         .card-content {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #333;
             padding: 5px 10px;
         }
         /* maybe the footer is too big/flashy? */
         .footer {
             bottom: 0;
-            background: #ddd;
+            background: #333;
             padding: 10px;
             font-size: 1rem;
             text-align: center;
+            color: white;
         }
     </style>
     <title>HOME | WriteWander</title>
@@ -135,31 +197,14 @@
         <a href="/manage">Manage</a>
         <a href="/login">Login</a>
     </div>
+    
+    <div class="image-text" style="background-image: url('https://images.rawpixel.com/image_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjgwNS1rdWwtMDguanBn.jpg')">
+    <p class="memo"><strong class="strong">WriteWander.</strong> Publish your thoughts, stories, and ideas_</p></div>
 
     <div id="root"></div>
     
-    <div class="row">
-        <div class="left-column">
-            <h2>Recent Posts</h2>
-            <div id="recent-posts" class="card-container">
-                {% for post in recent_posts %}
-                <div class="card">
-                    <a href="/id/{{ post.id }}"> <!-- redirects to each post's page -->
-                        <div class="card-img">Image Placeholder</div>
-                        <div class="card-title">{{ post.title }}</div>
-                        <div class="card-author">Author: {{ post.author }}</div>
-                        <div class="card-content">
-                            <p>Views: {{ post.views }}</p>
-                            {{ post.content | truncate(100) }} <!-- limit to 100 chars -->
-                            <a href="/id/{{ post.id }}"><p>Read more</p></a>
-                        </div>
-                    </a>
-                </div>
-                {% endfor %}
-            </div>            
-        </div>
-        <div class="right-column">
-            <h2>Popular Posts</h2>
+            <h3>Trending</h3>
+        <div class="trending">
             <div id="popular-posts" class="card-container">
                 {% for post in popular_posts %}
                 <div class="card">
@@ -168,16 +213,33 @@
                         <div class="card-title">{{ post.title }}</div>
                         <div class="card-author">Author: {{ post.author }}</div>
                         <div class="card-content">
-                            <p>Views: {{ post.views }}</p>
+                            <p>Views: {{ post.views }}</p><br>
                             {{ post.content | truncate(100) }} <!-- limit to 100 chars -->
-                            <a href="/id/{{ post.id }}"><p>Read more</p></a>
                         </div>
                     </a>
                 </div>
                 {% endfor %}
             </div>            
         </div>
-    </div>
+
+            <h3>What's New?</h3>
+        <div class="whats-new">
+            <div id="recent-posts" class="card-container">
+                {% for post in recent_posts %}
+                <div class="card">
+                    <a href="/id/{{ post.id }}"> <!-- redirects to each post's page -->
+                        <div class="card-img">Image Placeholder</div>
+                        <div class="card-title">{{ post.title }}</div>
+                        <div class="card-author">Author: {{ post.author }}</div>
+                        <div class="card-content">
+                            <p>Views: {{ post.views }}</p><br>
+                            {{ post.content | truncate(100) }} <!-- limit to 100 chars -->
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>            
+        </div>
     
     <div class="footer">
         <h2>Footer</h2>
