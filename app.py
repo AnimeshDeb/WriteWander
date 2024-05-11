@@ -74,17 +74,6 @@ def api_search_posts():
         else:
             return f"Error in search route: {str(e)}, all_posts: {all_posts}", 500
 
-            #if request.headers.get('Content-Type') == 'application/json':
-            #    return jsonify({'posts': [post.to_dict() for post in all_posts]}), 200
-            #else:
-            #return render_template('search.html', posts=all_posts), 200
-        #else: # get all posts
-            #try:
-            #    all_posts = get_all_posts()
-                #if request.headers.get('Content-Type') == 'application/json':
-                #    return jsonify({'posts': [post.to_dict() for post in all_posts]}), 200
-
-
 
 # CREATE A POST ✓ (to be updated! with authenticated user!)
 @app.route('/create', methods=['GET','POST'])
@@ -96,11 +85,11 @@ def api_create_post():
             # make sure userID matches, almost like a password or verify?
             userID = request.form.get('userID', '0000') # default userID, replace with auth
             title = request.form.get('title')
-            content = request.form.get('content')
+            content = request.form.get('content').replace('\n', '<br>').replace('\t', '&emsp')
             font = request.form.get('font', 'monospace') # default font
             post_id = create_post(userID, title, content, font)
             print(f"Success :) {post_id}")
-            return view_post(post_id)
+            return redirect(url_for('view_post', post_id=post_id))
         except Exception as e:
             return jsonify(error=f"Error creating your post: {str(e)}"), 500
     else:
@@ -126,11 +115,12 @@ def manage():
 def api_edit_post(post_id):
     if request.method == 'POST':
         title = request.form['title']
-        content = request.form['content']
+        content = request.form.get('content').replace('\n', '<br>').replace('\t', '&emsp')
+        font = request.form['font']
         try:
-            edit_post(post_id, title, content)
+            edit_post(post_id, title, content, font)
             print (f"Post {post_id} updated successfully")
-            return view_post(post_id)
+            return redirect(url_for('view_post', post_id=post_id))
         except Exception as e:
             return jsonify(error=f"Error updating post {post_id}: {str(e)}"), 500
     else: 

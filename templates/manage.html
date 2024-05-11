@@ -39,15 +39,14 @@
             padding-top: 20px;
             font-family: monospace;
             color: #333;
-            background-image: url('https://images.rawpixel.com/image_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjgwNS1rdWwtMDguanBn.jpg');
-            position: relative;
+            background-image: url('https://i.etsystatic.com/6534762/c/1277/1015/65/0/il/d76674/3731668762/il_500x500.3731668762_8q8k.jpg');
+            position: center;
             min-height: 100vh;
         }
         .card {
             background-image: 
                 linear-gradient(rgba(248, 245, 243, 0.9), 
-                rgba(248, 245, 243, 0.9)), 
-                url('https://static.vecteezy.com/system/resources/thumbnails/008/807/149/small_2x/coffee-stain-background-free-vector.jpg');
+                rgba(248, 245, 243, 0.9));
             background-size: cover;
             background-position: center;
             border: 1px solid #ddd;
@@ -100,12 +99,24 @@
             margin: 0 5px;
             display: inline-block;
         }
-        .footer {
-            bottom: 0;
-            background: #ddd;
+        .footer-container {
+            background: #333;
             padding: 10px;
+            color: white;
             font-size: 1rem;
             text-align: center;
+            bottom: 0;
+            left: 0;
+            position: relative;
+            width: 100%;
+        }
+        h4 {
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 20px;
         }
         .button {
             background-color: #333;
@@ -204,5 +215,12 @@
             {% endfor %}
         </div>
     </div>
+
+    <div class="footer-container">
+        <h4>
+             © 2024, WriteWander
+        </h4>
+    </div>
+    
 </body>
 </html>

@@ -15,10 +15,9 @@
             font-family: monospace;
             color: #333;
             background-image:
-                linear-gradient(rgba(243, 239, 223, 0.9), 
-                rgba(248, 245, 243, 0.9)), 
-                url('https://static.vecteezy.com/system/resources/thumbnails/008/807/149/small_2x/coffee-stain-background-free-vector.jpg');
-            
+                linear-gradient(rgba(255, 255, 255, 0.7), 
+                rgba(255, 255, 255, 0.7)), 
+                url('https://images.creativemarket.com/0.1.0/ps/2701365/1772/1772/m1/fpnw/wm0/1000kk-.jpg?1495020419&s=06e57afe079c1421ea42a8d58e8f2c15');   
         }
         .header {
             padding: 30px;
@@ -66,7 +65,7 @@
             font-size: 2em;
             font-family: monospace;
             text-align: center;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            text-shadow: 4px 0px 10px rgba(0, 0, 0, 0.8);
         }
         /* main content */
         ::-webkit-scrollbar {
@@ -119,9 +118,9 @@
         /* posts content */
         .card {
             background-image: 
-                linear-gradient(rgba(253, 242, 233, 0.9), 
-                rgba(253, 242, 233, 0.9)), 
-                url('https://static.vecteezy.com/system/resources/thumbnails/008/807/149/small_2x/coffee-stain-background-free-vector.jpg');
+                linear-gradient(rgba(238, 232, 170, 0.4), 
+                rgba(238, 232, 170, 0.4)),
+                url('https://images.rawpixel.com/image_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjgwNS1rdWwtMDguanBn.jpg');
             background-size: cover;
             background-position: center;
             border: 1px solid #ddd;
@@ -152,11 +151,19 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .card-img {
-            background-color: #aaa; /* sample gray 'Image' placeholder */
+            position: relative;
+            overflow: hidden;
             border-radius: 4px;
             width: 100%;
             height: 120px;
             margin-top: 20px;
+        }
+        .card-img img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
         }
         .card-title {
             font-size: 1.2rem;
@@ -174,14 +181,24 @@
             color: #333;
             padding: 5px 10px;
         }
-        /* maybe the footer is too big/flashy? */
-        .footer {
-            bottom: 0;
+        .footer-container {
             background: #333;
             padding: 10px;
+            color: white;
             font-size: 1rem;
             text-align: center;
-            color: white;
+            bottom: 0;
+            left: 0;
+            position: relative;
+            width: 100%;
+        }
+        h4 {
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 20px;
         }
     </style>
     <title>HOME | WriteWander</title>
@@ -203,13 +220,15 @@
 
     <div id="root"></div>
     
-            <h3>Trending</h3>
+            <h3>Most Viewed!</h3>
         <div class="trending">
             <div id="popular-posts" class="card-container">
                 {% for post in popular_posts %}
                 <div class="card">
                     <a href="/id/{{ post.id }}"> <!-- redirects to each post's page -->
-                        <div class="card-img">Image Placeholder</div>
+                        <div class="card-img">
+                            <img src="https://source.unsplash.com/featured/?{{ post.title | urlencode }}">
+                        </div>
                         <div class="card-title">{{ post.title }}</div>
                         <div class="card-author">Author: {{ post.author }}</div>
                         <div class="card-content">
@@ -228,7 +247,9 @@
                 {% for post in recent_posts %}
                 <div class="card">
                     <a href="/id/{{ post.id }}"> <!-- redirects to each post's page -->
-                        <div class="card-img">Image Placeholder</div>
+                        <div class="card-img">
+                            <img src="https://source.unsplash.com/featured/?{{ post.title | urlencode }}">
+                        </div>
                         <div class="card-title">{{ post.title }}</div>
                         <div class="card-author">Author: {{ post.author }}</div>
                         <div class="card-content">
@@ -240,10 +261,35 @@
                 {% endfor %}
             </div>            
         </div>
-    
-    <div class="footer">
-        <h2>Footer</h2>
+  
+    <div class="footer-container">
+        <h4>
+             © 2024, WriteWander
+        </h4>
     </div>
 
+    <script>
+        // Randomize Color Gradients for Card Backgrounds -- varies on reload
+        function getRandomInt(min = 128, max = 255) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        function getRandGradient() {
+            const color1 = `rgba(${getRandomInt()}, ${getRandomInt()}, ${getRandomInt()}, 0.4)`;
+            const color2 = `rgba(${getRandomInt()}, ${getRandomInt()}, ${getRandomInt()}, 0.4)`;
+            return `linear-gradient(${color1}, ${color2})`;
+        }
+        function colorCard() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const randGrad = getRandGradient();
+                const currentBgd = getComputedStyle(card).backgroundImage;
+                card.style.backgroundImage = `${randGrad}, ${currentBgd}`;
+            });
+        }
+        window.onload = colorCard;
+
+    </script>
 </body>
 </html>

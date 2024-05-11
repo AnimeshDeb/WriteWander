@@ -51,7 +51,7 @@ const HomePage = () => {
             </div>
 
             <div id="recent-posts">
-=                {recentPosts.map((post) => (
+                {recentPosts.map((post) => (
                 <li key={post.id}>{post.title}</li>
                 ))}
             </div>

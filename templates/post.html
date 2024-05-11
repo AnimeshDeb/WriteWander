@@ -39,9 +39,6 @@
             padding-top: 20px;
             font-family: monospace;
             color: #333;
-            background-image: url('https://images.rawpixel.com/image_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjgwNS1rdWwtMDguanBn.jpg');
-            background-size: cover;
-            position: relative;
             min-height: 100vh;
             margin: 0;
         }
@@ -75,12 +72,35 @@
             font-size: 1rem;
             padding-top: 10px;
         }
-        .footer {
-            bottom: 0;
-            background: #ddd;
+        .card-img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 10px solid whitesmoke;
+        }
+        .card-img img {
+            max-width: 500px;
+            max-height: 500px;
+            object-fit: contain;
+        }
+        .footer-container {
+            background: #333;
             padding: 10px;
+            color: white;
             font-size: 1rem;
             text-align: center;
+            bottom: 0;
+            left: 0;
+            position: relative;
+            width: 100%;
+        }
+        h4 {
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -102,9 +122,48 @@
             <p class="card-date">Date: {{ post.date.strftime('%Y-%m-%d') }}</p>
             <p class="card-views">Views: {{ post.views }}</p>
             <div class="card-content">
-                {{ post.content }}
+                {{ post.content|replace('\n', '<br>')|safe }}
+            </div>
+            <br>
+            <!-- limitation: title must be searchable for image generation -->
+            <div class="card-img">
+                <img src="https://source.unsplash.com/featured/?{{ post.title | urlencode }}">
             </div>
         </div>
     </div>
+
+    <div><br><br><br></div>
+
+    <div class="footer-container">
+        <h4>
+             © 2024, WriteWander
+        </h4>
+    </div>
+
+    <script>
+        // alternating background images
+        var bgImages = [
+            'https://s-media-cache-ak0.pinimg.com/736x/d7/c8/ca/d7c8cad4b262e448c541b2e14aa2122f.jpg',
+            'https://storage.googleapis.com/webdesignledger.pub.network/LaT/edd/2016/02/beautiful-multi-colored-grab-bad-textures-9-780x1061.jpg',
+            'https://www.publicdomainpictures.net/pictures/410000/velka/grunge-hintergrund-textur-kunst-1628592754u6E.jpg',
+            'https://i.pinimg.com/originals/02/ab/12/02ab126891bad4de0d3c6cef82105411.jpg',
+            'https://storage.needpix.com/rsynced_images/scrapbook-1612330_1280.jpg',
+            'https://i.pinimg.com/originals/6e/14/c2/6e14c29a2d0fec320cbb03f9129299a6.jpg',
+            'https://images.rawpixel.com/image_social_landscape/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL3JtNDUyLWItMDAyZC14LmpwZw.jpg',
+            'https://images.rawpixel.com/image_1000/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm00NTItZi0wMTQta3Z2b2llbWsuanBn.jpg',
+            'https://st2.depositphotos.com/1592314/9073/i/950/depositphotos_90733206-stock-photo-vintage-letters-and-postcards-nostalgic.jpg',
+            'https://img.freepik.com/premium-photo/vintage-background-with-old-handwritten-post-cards_154730-129.jpg?w=740',
+            'https://pnwframing.com/wp-content/uploads/2014/06/bigstock-Old-Letters-Handwritings-Vin-78486089.jpg',
+            'https://www.hobbyfeeling.nl/files/Products/original/BASISHH228.jpg',
+            'https://img.freepik.com/premium-photo/light-blue-grunge-old-wallpaper-texture-monochrome-plain_966328-5819.jpg',
+            'https://www.janeclayton.co.uk/media/catalog/product/cache/04f3c6c3e6655e7be184d6c72b803cfa/f/a/faded-passion-sandberg-pastel-wallpaper-623-16-image01.jpg'
+        ];
+        function changeBackground() {
+            var randomImage = bgImages[Math.floor(Math.random() * bgImages.length)];
+            document.body.style.backgroundImage = 'url(' + randomImage + ')';
+        }
+        window.onload = changeBackground;
+    </script>
+
 </body>
 </html>

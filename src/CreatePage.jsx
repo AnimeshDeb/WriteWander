@@ -51,20 +51,23 @@ const CreatePage = () => {
                     <input type="text" name="title" placeholder="Enter title" value={post.title} onChange={handleChange} />
                     <textarea name="content" placeholder="Enter content" value={post.content} onChange={handleChange}></textarea>
                     <select name="font" value={post.font} onChange={handleChange}>
-                        <option value="monospace">Monospace</option>
-                        <option value="serif">Serif</option>
-                        <option value="sans-serif">Sans-serif</option>
-                        <option value="Courier New">Courier New</option>
-                        <option value="Verdana">Verdana</option>
-                        <option value="Helvetica">Helvetica</option>
-                        <option value="Arial">Arial</option>
-                        <option value="Cambria">Cambria</option>
-                        <option value="Georgia">Georgia</option>
-                        <option value="Tahoma">Tahoma</option>
-                        <option value="Geneva">Geneva</option>
-                        <option value="Impact">Impact</option>
-                        <option value="fantasy">fantasy</option>
-                        <option value="cursive">cursive</option>
+                    <option value="monospace">Monospace</option>
+                    <option value="serif">Serif</option>
+                    <option value="sans-serif">Sans-serif</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Century Gothic">Century Gothic</option>
+                    <option value="Candara">Candara</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Helvetica">Helvetica</option>
+                    <option value="Lucida Sans">Lucida Sans</option>
+                    <option value="Lucida Console">Lucida Console</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Cambria">Cambria</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Tahoma">Tahoma</option>
+                    <option value="Geneva">Geneva</option>
+                    <option value="Impact">Impact</option>
+                    <option value="fantasy">fantasy</option>
                     </select>
                     <input type="submit" value="Submit" />
                 </form>

@@ -2,6 +2,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore, auth
 from google.cloud.firestore_v1.base_query import FieldFilter
 from datetime import datetime
+import bleach
 
 cred = credentials.Certificate("priv.json")
 firebase_admin.initialize_app(cred)
@@ -33,6 +34,7 @@ def get_post_by_post_id(post_id):
     try:
         post_ref = db.collection('Posts').document(post_id)
         post_data = post_ref.get().to_dict()
+        post_data['content'] = post_data['content'].replace('<br>', '\n')
         post_ref.update({'views': post_data['views'] + 1})  # the increment is slow though?
         return post_data
     except Exception as e:
@@ -97,11 +99,15 @@ def get_user_posts(user_id):
 def create_post(userID, title, content, font='monospace'):
     try:
         if userID and title and content:
+            content = content.replace('\n', '<br>') 
+            allowed_tags = ['b', 'i', 'u', 'em', 'strong', 'p', 'br']
+            sanitized_content = bleach.clean(content, tags=allowed_tags, strip=True)
+            sanitized_content = sanitized_content.replace('<br>', '\n')
             post_data = {
                 'userID': str(userID),  # change after implementing authentication!
                 'author': 'author',     # replace this with actual author info after authentication!
                 'title': str(title),
-                'content': str(content),
+                'content': sanitized_content,
                 'date': datetime.now(),
                 'views': 0,               # init views to 0
                 'id': ''
@@ -120,14 +126,18 @@ def create_post(userID, title, content, font='monospace'):
         return None
 
 # EDIT A POST ✓ :: might have to modify, or ManagePage should show postID with all posts & options...
-def edit_post(post_id, title, content): 
+def edit_post(post_id, title, content, font): 
     try: 
+        content = content.replace('\n', '<br>') 
+        allowed_tags = ['b', 'i', 'u', 'em', 'strong', 'p', 'br']
+        sanitized_content = bleach.clean(content, tags=allowed_tags, strip=True)
+        sanitized_content = sanitized_content.replace('<br>', '\n')
         new_data = {
             'title' : title,
-            'content' : content
+            'content' : sanitized_content,
+            'font' : font
         }
         post_ref = db.collection('Posts').document(post_id).update(new_data)
-        print(f"Post {post_id} updated successfully")
         return None
     except Exception as e:
         return f"Error editing post: {str(e)}"

@@ -39,7 +39,7 @@
             padding-top: 20px;
             font-family: monospace;
             color: #333;
-            background-image: url('https://images.rawpixel.com/image_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjgwNS1rdWwtMDguanBn.jpg');
+            background-image: url('https://st2.depositphotos.com/1592314/9073/i/950/depositphotos_90733206-stock-photo-vintage-letters-and-postcards-nostalgic.jpg');
             background-size: cover;
             position: relative;
             min-height: 100vh;
@@ -51,57 +51,68 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 15px;
+            padding: 20px;
             width: 70%;
             margin: 30px auto; 
         }
-        .card-title {
-            font-size: 1.5rem;
-            font-family: monospace;
-        }
-        .card-date {
-            font-size: 1rem;
-            font-family: monospace;
-        }
-        .card-views {
-            font-size: 1rem;
-            font-family: monospace;
-        }
-        .card-author {
-            font-size: 1rem;
-            font-family: monospace;
-        }
-        .card-content {
-            font-family: "{{ post.font }}";
-        }
-        .footer {
-            bottom: 0;
-            background: #ddd;
+        .footer-container {
+            background: #333;
             padding: 10px;
+            color: white;
             font-size: 1rem;
             text-align: center;
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            width: 100%;
         }
-        #edit-root {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 15px;
+        h4 {
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 20px;
         }
         form {
             display: flex;
             flex-direction: column;
         }
-        .form-container {
+        .edit-form {
             padding: 0 15px;
+            margin-top: 20px;
         }
-        label {
-            margin-bottom: 5px;
-        }
-        input[type="text"],
-        textarea {
+        .edit-form textarea {
             margin-bottom: 10px;
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
+            width: 100%;
+            min-height: 180px;
+            height: fit-content;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .edit-form input,
+        .edit-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        /* buttons: save&submit , cancel */
+        .button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
         }
         input[type="submit"] {
             background-color: #333;
@@ -112,23 +123,7 @@
             transition: background-color 0.2s;
         }
         input[type="submit"]:hover {
-            background-color: #ddd;
-            color: black;
-        }
-        .button {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .button-container {
-            text-align: center;
-        }
-        .button:hover {
-            background-color: #ddd;
+            background-color: #60BD89;
             color: black;
         }
         .button-cancel {
@@ -136,14 +131,15 @@
             border: none;
             cursor: pointer;
             transition: background-color 0.2s;
-            background-color: #bbb;
-            color: black;
+            background-color: #333;
+            color: white;
             display: inline-block;
             text-align: center;
             width: 100%;
+            font-weight: 500;
         }
         .button-cancel:hover {
-            background-color: #555;
+            background-color: #FA8072;
             color: white;
         }
     </style>
@@ -160,16 +156,53 @@
     </div>
 
     <div id="edit-root" class="card">
-        <div class="form-container">
+        <div class="edit-form">
             <form action="/edit/{{ post.id }}" method="post">
-                <label for="title">Title:</label><br>
+                <h3>Title:</h3><br>
                 <input type="text" id="title" name="title" value="{{ post.title }}"><br>
-                <label for="content">Content:</label><br>
+                <h3>Content:</h3><br>
                 <textarea id="content" name="content">{{ post.content }}</textarea><br>
+                <select name="font" id="sel-font">
+                    <option value="monospace">Monospace</option>
+                    <option value="serif">Serif</option>
+                    <option value="sans-serif">Sans-serif</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Century Gothic">Century Gothic</option>
+                    <option value="Candara">Candara</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Helvetica">Helvetica</option>
+                    <option value="Lucida Sans">Lucida Sans</option>
+                    <option value="Lucida Console">Lucida Console</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Cambria">Cambria</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Tahoma">Tahoma</option>
+                    <option value="Geneva">Geneva</option>
+                    <option value="Impact">Impact</option>
+                    <option value="fantasy">fantasy</option>
+                </select>
                 <input type="submit" value="Save & Submit" class="button">
                 <a href="/manage" class="button button-cancel">Cancel</a>
             </form>
         </div>
     </div>
+
+    <div><br><br><br><br><br></div>
+
+    <div class="footer-container">
+        <h4>
+             © 2024, WriteWander
+        </h4>
+    </div>
+
+    <script>
+        // change content's font based on what they select
+        var select = document.getElementById('sel-font');
+        var textarea = document.getElementById('content');
+        select.addEventListener('change', function() {
+            textarea.style.fontFamily = this.value;
+        });
+    </script>
+
 </body>
 </html>

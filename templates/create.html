@@ -39,8 +39,9 @@
             padding-top: 20px;
             font-family: monospace;
             color: #333;
-            background-image: url('https://images.rawpixel.com/image_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjgwNS1rdWwtMDguanBn.jpg');
+            background-image: url('https://i.pinimg.com/originals/24/03/6f/24036fe912a9dcc5469cb5dce67a1de4.jpg');
             background-size: cover;
+            background-attachment: fixed;
             position: relative;
             min-height: 100vh;
             margin: 0;
@@ -73,12 +74,24 @@
         .card-content {
             font-family: "{{ post.font }}";
         }
-        .footer {
-            bottom: 0;
-            background: #ddd;
+        .footer-container {
+            background: #333;
             padding: 10px;
+            color: white;
             font-size: 1rem;
             text-align: center;
+            bottom: 0;
+            left: 0;
+            position: relative;
+            width: 100%;
+        }
+        h4 {
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 20px;
         }
         .create-form {
             max-width: 600px;
@@ -88,7 +101,6 @@
                 linear-gradient(rgba(243, 239, 223, 0.9), 
                 rgba(248, 245, 243, 0.9)), 
                 url('https://static.vecteezy.com/system/resources/thumbnails/008/807/149/small_2x/coffee-stain-background-free-vector.jpg');
-            background-size: cover;
             background-position: center; 
             border: 3px solid #ddd;
             border-radius: 4px;
@@ -103,6 +115,7 @@
             margin-bottom: 15px;
             border: 1px solid #ddd;
             border-radius: 4px;
+            font-family: monospace;
         }
         .create-form textarea {
             width: 100%;
@@ -112,14 +125,89 @@
             margin-bottom: 15px;
             border: 1px solid #ddd;
             border-radius: 4px;
-        }
-        .create-form select {
-            font-family: monospace; /* Set font for select element */
+            font-size: 14px;
         }
         .create-form input[type="submit"] {
             background-color: #333;
             color: white;
             cursor: pointer;
+        }
+        /* For generating a random image/prompt/quote */
+        .prompt {
+            display: flex;
+            justify-content: center;
+            margin-top: 60px;
+            margin-left: 100px;
+            margin-right: 100px;
+            font-size: 0.8rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            letter-spacing: 1.2px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+        }
+        .prompt button {
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        #textArea {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-left: 300px;
+            margin-right: 300px;
+        }
+        #textArea p {
+            text-align: center;
+            font-size: 1.1rem;
+            display: none;
+            background-color: rgba(151, 141, 131, 0.6);
+            font-weight: 400;
+            text-shadow: 1px 1px 0 #333, -1px -1px 0 #111, 1px -1px 0 #000, -1px 1px 0 #000, 0px 0px 5px rgba(0, 0, 0, 1);
+            padding: 10px;
+        }
+        #randomQuote{
+            color: white
+        }
+        #x-1 {
+            color: white;
+        }
+        #x0 {
+            color: rgb(255, 244, 179);
+        }
+        #x1 {
+            color: rgb(245, 136, 117);
+        }
+        #x2 {
+            color: lightblue;
+        }
+        #x3 {
+            color: aquamarine; 
+        }
+        #x4 {
+            color: rgb(217, 173, 230);
+        }
+        #imageArea {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+        #randomImage {
+            border: 10px solid whitesmoke;
+            max-width: 500px;
+            max-height: 500px;
+            display: none;
+            margin: 0 auto;
+        }
+        .sentiment {
+            display: none;
         }
     </style>
 </head>
@@ -136,18 +224,46 @@
         <a href="/login">Login</a>
     </div>
 
+    <div class="prompt">
+        <button id="genImg">Generate a Random Image</button>
+        <button id="genImgFor">Generate an Image For: </button>
+        <button id="genPrompt">Generate a Random Prompt</button>
+        <button id="genQuote">Generate a Random Quote</button>
+    </div>
+      
+    <div id="textArea">
+        <p id="randomPrompt">
+            <p id="headline">
+                <span id="x0" style="color: #DD5D89"> </span>
+                <span id="x1" style="color: #E2B007"> </span>
+                <span id="x2" style="color: #7ED957"> </span>
+                <span id="x3" style="color: #55B4B0"> </span>
+                <span id="x4" style="color: #7851A9"> </span>
+            </p>
+        </p>
+        <p id="randomQuote"></p>
+    </div>
+    
+    <div id="imageArea">
+        <img id="randomImage" alt="Random Image">
+    </div>
+
     <div id="create-root" class="card">
         <div class="create-form">
         <form id="post-form" method="POST" action="/create">
                 <input type="text" name="title" placeholder="Enter title" required>
-                <textarea name="content" placeholder="Enter content" required></textarea>
-                <select name="font">
+                <textarea name="content" id="content" placeholder="Enter content" required></textarea>
+                <select name="font" id="sel-font">
                     <option value="monospace">Monospace</option>
                     <option value="serif">Serif</option>
                     <option value="sans-serif">Sans-serif</option>
                     <option value="Courier New">Courier New</option>
+                    <option value="Century Gothic">Century Gothic</option>
+                    <option value="Candara">Candara</option>
                     <option value="Verdana">Verdana</option>
                     <option value="Helvetica">Helvetica</option>
+                    <option value="Lucida Sans">Lucida Sans</option>
+                    <option value="Lucida Console">Lucida Console</option>
                     <option value="Arial">Arial</option>
                     <option value="Cambria">Cambria</option>
                     <option value="Georgia">Georgia</option>
@@ -155,11 +271,519 @@
                     <option value="Geneva">Geneva</option>
                     <option value="Impact">Impact</option>
                     <option value="fantasy">fantasy</option>
-                    <option value="cursive">cursive</option>
                 </select>
                 <input type="submit" value="Create Post">
         </form>
         </div> 
     </div>
+
+    <div class="sentiment">
+        <p>
+            sentiment analysis? ?
+            pip install monkeylearn
+
+            python:
+            from monkeylearn import MonkeyLearn
+
+            ml = MonkeyLearn('your-api-key')
+            text = "MonkeyLearn is a great tool!"
+            model_id = 'cl_pi3C7JiL'
+            result = ml.classifiers.classify(model_id, [text])
+            print(result.body)
+
+            The sentiment can be % Positive, Negative, or Neutral.
+
+        </p>
+    </div>
+
+    <script>
+        // Change content's font based on what they select
+        var select = document.getElementById('sel-font');
+        var textarea = document.getElementById('content');
+        select.addEventListener('change', function() {
+            textarea.style.fontFamily = this.value;
+        });
+
+        // Random-ish Generated Quote/Prompt Fonts
+        var fonts = ["monospace","'Comic Sans MS', cursive", "'Lucida Handwriting', cursive", "Candara", "Century Gothic"];
+
+        // Generate a Random Image - from Unsplash API ;; omit credentials to block third party cookies
+        document.getElementById('genImg').addEventListener('click', function() {
+            var img = document.getElementById('randomImage');
+            img.style.display = 'block';
+            fetch('https://source.unsplash.com/random/', { credentials: 'omit' })
+                .then(response => response.blob())
+                .then(blob => {
+                    var url = URL.createObjectURL(blob);
+                    img.src = url;
+            });
+        });
+
+        // Generate a Searched for Image - from Unsplash APi
+        document.getElementById('genImgFor').addEventListener('click', function() {
+            var searchTerm = prompt("What are you looking for?");
+            var img = document.getElementById('randomImage');
+            img.style.display = 'block';
+            fetch('https://source.unsplash.com/featured/?' + encodeURIComponent(searchTerm), { credentials: 'omit' })
+                .then(response => response.blob())
+                .then(blob => {
+                    var url = URL.createObjectURL(blob);
+                    img.src = url;
+            });
+        });
+
+        // Generate a Random Quote - from Quotable.io API
+        document.getElementById('genQuote').addEventListener('click', function() {
+            const url = "https://api.quotable.io/random";
+            const quoteElem = document.getElementById('randomQuote');
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    quoteElem.textContent = `"${data.content}" - ${data.author}`;
+                    var randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+                    document.getElementById('randomQuote').style.fontFamily = randomFont;
+                    quoteElem.style.display = 'inline-block';
+                })
+                .catch(error => {
+                    console.log(error);
+                    quoteElem.textContent = "Failed to fetch quote. Please try again later.";
+            });
+        });
+
+        // Sentiment Analysis w/ monkeylearn? - analyze title, content
+
+    </script>
+
+
+    <script type="module">
+        // Generate a Random Prompt - from Promptoria.com (no API documentation)
+// more convenient to leave arrays here instead of import/export from a .js file
+const a = [
+    "some",
+    "a bitter,",
+    "the",
+    "the time you met a",
+    "a",
+    "the death of a",
+    "the other",
+    "a former",
+    "an evil,",
+    "a surprisingly",
+    "a small-town,",
+    "a famous,",
+    "an exceptionally",
+    "a spy posing as a",
+    "a hopelessly",
+    "the secret life of a",
+    "your cousin, the",
+    "the downfall of a",
+    "the dark side of a",
+    "the special talent of a",
+    "a friendly,",
+    "a soon-to-be",
+    "a cool,",
+    "your run-in with a",
+    "a nerdy,",
+    "a car accident caused by a",
+    "a futuristic",
+    "your ancestor, the",
+    "an unreliable,",
+    "a political scandal featuring a",
+    "a professional",
+    "a PR nightmare caused by a",
+    "an extremely",
+    "trying to sell a car to a",
+    "the hijinks of a",
+    "a dangerously",
+    "an undercover,",
+    "the career failure of a",
+    "the diary of a",
+    "the magical journey of a",
+    "an alien undercover as a",
+    "someone you met in a haunted forest. They were a",
+    "how you used to be a",
+    "the ghost of a"
+  ]
+  
+export const b = [
+    "blonde",
+    "hideous",
+    "brave",
+    "lazy",
+    "clever",
+    "mentally-unwell",
+    "conniving",
+    "party-going",
+    "guilt-ridden",
+    "forgetful",
+    "rude",
+    "camo-wearing",
+    "casual",
+    "basement-dwelling",
+    "traumatized",
+    "heartless",
+    "house-bound",
+    "cringey",
+    "gifted",
+    "homeless",
+    "radical",
+    "lost",
+    "fashionable",
+    "surprisingly wholesome",
+    "elegant",
+    "young",
+    "polite",
+    "terrified",
+    "quiet",
+    "skittish",
+    "gay",
+    "French",
+    "republican",
+    "well-read",
+    "democratic",
+    "methodical",
+    "far-right",
+    "drug-addicted",
+    "far-left",
+    "world-champion",
+    "narcissistic",
+    "stuck-in-the-past",
+    "granola-munching",
+    "bigoted",
+    "social",
+    "hypocritical",
+    "confident",
+    "cursed",
+    "mentally-unstable",
+    "possessed",
+    "cowardly",
+    "gunslinging",
+    "sheepish",
+    "constipated",
+    "toxically optimistic",
+    "reckless",
+    "well-connected",
+    "wounded",
+    "rich",
+    "picky",
+    "poor",
+    "magical",
+    "gloomy",
+    "toxic",
+    "smug",
+    "homely",
+    "lucky",
+    "cocky",
+    "stinky",
+    "FBI agent",
+    "compassionate",
+    "thief",
+    "peaceful",
+    "virtual-reality",
+    "soft-spoken",
+    "gorgeous",
+    "workaholic",
+    "goth",
+    "old",
+    "frantic",
+    "grouchy",
+    "wealthy",
+    "stubborn",
+    "suspicious",
+    "bubbly"
+  ]
+  
+export const c = [
+    "bartender",
+    "door-to-door vitamin seller",
+    "engineer",
+    "armored truck driver",
+    "librarian",
+    "soldier",
+    "elementary school teacher",
+    "lunch lady",
+    "graphic designer",
+    "superhero",
+    "small business owner",
+    "monster truck driver",
+    "stay-at-home mom",
+    "corn farmer",
+    "nurse",
+    "documentary producer",
+    "dog trainer",
+    "lifestyle blogger",
+    "astronaut",
+    "chef",
+    "janitor",
+    "celebrity agent",
+    "guy",
+    "cave diver",
+    "gal",
+    "lifeguard",
+    "grandma",
+    "social media addict",
+    "grandpa",
+    "father of nine girls",
+    "pet hoarder",
+    "koala breeder",
+    "pilot",
+    "exotic animal smuggler",
+    "cynic",
+    "politician",
+    "olympic swimmer",
+    "art student",
+    "ballet teacher",
+    "paramedic",
+    "pianist",
+    "hypochondriac",
+    "detective",
+    "forest nymph",
+    "police officer",
+    "cyclops",
+    "construction worker",
+    "wrestling champion",
+    "intern",
+    "Mars colonist",
+    "college student",
+    "tax collector",
+    "mechanic",
+    "wizard",
+    "cosmetologist",
+    "child prodigy",
+    "author",
+    "dragon slayer",
+    "journalist",
+    "elf",
+    "assistant manager",
+    "sorcerer",
+    "grocery clerk",
+    "troll",
+    "priest",
+    "humanoid robot",
+    "IT specialist",
+    "spaceship mechanic",
+    "homeless man",
+    "wormhole explorer",
+    "secretary",
+    "time traveler",
+    "teenager",
+    "cowgirl",
+    "firefighter",
+    "clown",
+    "lawyer",
+    "underwater basket weaver",
+    "drug dealer",
+    "centaur",
+    "middle school teacher",
+    "ticket taker",
+    "programmer",
+    "juror",
+    "florist",
+    "brain surgeon",
+    "stay-at-home dad",
+    "life coach",
+    "singer-songwriter",
+    "kidnapper",
+    "movie star",
+    "mail carrier",
+    "runner",
+    "train conductor",
+    "serial killer",
+    "retail employee",
+    "door-to-door salesman",
+    "talking horse",
+    "football player",
+    "shuttle driver",
+    "comic strip author",
+    "ancient god",
+    "babysitter",
+    "magician",
+    "street vendor",
+    "sewer troll"
+  ]
+  
+export const d = [
+    "hides from the police",
+    "vandalizes a famous painting",
+    "runs away from home",
+    "forgets where they live",
+    "has to find a new job",
+    "gets stuck in a cardboard bailer",
+    "never leaves their house",
+    "drops out of a GED prep class",
+    "gets out of jail",
+    "joins a convent",
+    "paints horrible modern art",
+    "finds themselves in a sinking submarine",
+    "moonlights as a parking attendant",
+    "climbs Mount Everest every year",
+    "buys a used school bus",
+    "gets involved with a drug cartel",
+    "starts selling stolen car parts",
+    "refuses to listen to hip hop",
+    "kills their neighbor",
+    "starts a charity to cure smallpox",
+    "adopts a 15-year-old from Alaska",
+    "fakes their own death",
+    "throws away their life savings",
+    "robs a grocery store",
+    "eats only bananas for a month",
+    "comes back to life",
+    "is trapped in a box",
+    "tries to sneak onto an evacuation rocket",
+    "goes to community college",
+    "switches bodies with their dad",
+    "gets in a fight in a mysterious van",
+    "is cursed to say everything on their mind",
+    "gives advice to at-risk teens",
+    "tries to escape the afterlife",
+    "has to memorize the Bible",
+    "learns how to talk to animals",
+    "reports their spouse as missing",
+    "has to convince their neighbor their house is haunted",
+    "starts a job making potato chips",
+    "gets caught in an awkward love triangle",
+    "finds their true love",
+    "falls into a vat of baked beans",
+    "forms an addiction to simple syrup",
+    "forms an addiction to online shopping",
+    "builds houses for the homeless",
+    "turns into a mythical creature",
+    "starts eating paper clips",
+    "runs a money-laundering scheme",
+    "gets stuck in a closet at work",
+    "sells their soul in the classifieds",
+    "invents a cure to a disease",
+    "hijacks a public bus",
+    "finds a secret hidden treasure",
+    "falls in love with their enemy’s daughter",
+    "rents a minivan",
+    "finds irrefutable evidence of alien life",
+    "hires 20 underage employees",
+    "becomes a stand-up comedian",
+    "joins a civil rights campaign",
+    "convinces people they have magic powers",
+    "has to flee the country",
+    "gets revenge on an old romantic partner",
+    "starts a plague",
+    "turns an old closet into an interdimensional portal",
+    "sneaks into a cereal factory",
+    "gets in a fight with a cashier",
+    "adopts eight kittens",
+    "discovers their enemy turned them into a rabbit",
+    "knits sweaters laced with poison",
+    "lives the plot of a Dr. Seuss book",
+    "is in the most dangerous city in the world",
+    "wakes up locked in a high school bathroom",
+    "finds a buried ancient society",
+    "hires a rocket to the moon",
+    "impersonates a famous musician",
+    "sues the pizza delivery company",
+    "impulsively starts the wave at sport games",
+    "lives an entire day in reverse",
+    "surprises their spouse with a dead mouse",
+    "sells horrible poetry on public transit",
+    "joins a 10-piece brass band",
+    "buries an enormous sum of money",
+    "sells their soul to a jewelry store",
+    "spends a week inside a Taco Bell refrigerator",
+    "asks a clown on a date",
+    "throws a dead body in a lake",
+    "is pretending to be a robot",
+    "tries to visit Obama at his home",
+    "joins an extreme religious cult",
+    "sets six gerbils free in a park"
+  ]
+  
+export const e = [
+    "to save money",
+    "to fix their bad credit score",
+    "because of a dark past",
+    "after discovering an enchanted orb",
+    "because of a secret terrorist plot",
+    "… until an evil power changes everything",
+    "because there was an alien invasion",
+    "because of scheduling conflicts",
+    "thanks to childhood trauma",
+    "to save their worst enemy’s life",
+    "to impress their dead parents",
+    "as an elaborate ploy to make friends",
+    "because of a bet placed years ago",
+    "despite everyone telling them not to",
+    "out of an abundance of caution",
+    "as an extreme form of method acting",
+    "while avoiding a suspicious-looking gentleman",
+    "to stall a court hearing",
+    "in an effort to pay off a debt",
+    "after looking themselves up online",
+    "without consulting their therapist",
+    "but the narrator gets some of the details wrong",
+    "because their best friend is evil",
+    "after drinking a funny looking soda",
+    "with ulterior motives",
+    "to win back their true love",
+    "after winning the lottery",
+    "as a political stunt",
+    "under suspicious circumstances",
+    "to get intelligence for a foreign military",
+    "with the help of an imaginary friend",
+    "with the help of off-brand energy drinks",
+    "for charity",
+    "and blames it on a mid-life crisis",
+    "for a tax write-off",
+    "because nobody would take them seriously otherwise",
+    "even though they have a cold",
+    "to prevent an ancient prophecy from being fulfilled",
+    "despite their spouse telling them not to",
+    "to have something interesting for their memoir",
+    "despite their dreams of being a polar bear",
+    "in an obscure village in central Brazil",
+    "without getting caught",
+    "as a form of protest",
+    "to impress their crush",
+    "to rebel against societal norms",
+    "while listening to 90s rap music",
+    "without realizing they are being followed",
+    "due to undiagnosed mental conditions",
+    "and has to explain it to a judge",
+    "after hitting their head on a filing cabinet",
+    "due to an interplanetary disturbance",
+    "while screaming obscenities",
+    "to disguise their true magic powers",
+    "in a moment of weakness",
+    "to hide from the mafia",
+    "to pass a high-school class from years ago"
+  ]
+
+        document.getElementById('genPrompt').addEventListener('click', function() {
+            var i0 = a[~~(Math.random() * a.length)]
+            var i1 = b[~~(Math.random() * b.length)]
+            var i2 = c[~~(Math.random() * c.length)]
+            var i3 = d[~~(Math.random() * d.length)]
+            var i4 = e[~~(Math.random() * e.length)]
+
+            var x0 = '<span id="x0"  contenteditable="true" >' + i0 + '</span>';
+            var x1 = '<span id="x1" contenteditable="true" >' + i1 + '</span>';
+            var x2 = '<span id="x2" contenteditable="true">' + i2 + '</span>';
+            var x3 = '<span id="x3" contenteditable="true">who ' + i3 + '</span>';
+            var x4 = '<span id="x4" contenteditable="true">' + i4 + '.</span>';
+
+            var outstring = '<span id="x-1" contenteditable="true">Write a story about</span> ' + x0 + " " + x1 + " " + x2 + " " + x3 + " " + x4;
+            document.getElementById("headline").innerHTML = outstring;
+
+            var randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+            document.getElementById('headline').style.fontFamily = randomFont;
+            document.getElementById('headline').style.display = 'inline-block';
+        });
+    </script>
+
+    <div><br><br><br><br><br><br></div>
+
+    <div class="footer-container">
+        <h4>
+             © 2024, WriteWander
+        </h4>
+    </div>
+
 </body>
 </html>
