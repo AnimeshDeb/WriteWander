@@ -1,0 +1,81 @@
+/* General Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: monospace;
+    color: #333;
+    background-image: url('https://images.rawpixel.com/image_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWJzaXRlX2NvbnRlbnQvbHIvdjgwNS1rdWwtMDguanBn.jpg');
+    background-size: cover;
+    position: relative;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 20px;
+}
+
+.header {
+    padding: 30px;
+    font-size: 2rem;
+    text-align: center;
+    background: white;
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    background-color: #333;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar a {
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.create-root {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.create-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-form input,
+.create-form textarea,
+.create-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.create-form select {
+    font-family: monospace; /* Set font for select element */
+}
+
+.create-form input[type="submit"] {
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+}
