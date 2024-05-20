@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  async function signup(email, password) {
+  async function signup(email, password, userName) {
     try {
       //in below three lines, we are instantiating variables to refer to user data, such as their uid that is generated in firebase, email, and password.
       const userCredential = await createUserWithEmailAndPassword(
@@ -45,18 +45,20 @@ export function AuthProvider({ children }) {
       const userId = userCredential.user.uid;
       const user = userCredential.user;
 
-      // await updateProfile(userCredential.user);
+      await updateProfile(user, {
+        displayName:userName
+      })
 
       const usersCollection = collection(db, "Users");
       const usersSnapshot = await getDocs(usersCollection);
       const userCount = usersSnapshot.size + 1;
 
-      const userDocRef = doc(usersCollection, `User${userCount}`);
+      const userDocRef = doc(usersCollection, userId);
       //using setDoc, which is a firebase fnctionality, to display certain
       // fields in the firebase database, such as email, display name, password, and their user id.
       await setDoc(userDocRef, {
         email: user.email,
-
+        name: userName,
         password: password,
         UID: user.uid,
       });
