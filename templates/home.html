@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            padding: 20px; /* Height of navbar plus some extra space */
+            font-family: monospace;
+            color: #333;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.7), 
+                rgba(255, 255, 255, 0.7)), 
+                url('https://images.creativemarket.com/0.1.0/ps/2701365/1772/1772/m1/fpnw/wm0/1000kk-.jpg?1495020419&s=06e57afe079c1421ea42a8d58e8f2c15');   
+        }
+        .header {
+            padding: 30px;
+            font-size: 2rem;
+            text-align: center;
+            background: white;
+        }
+        h3 {
+            font-size: 1.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 20px;
+        }
+        .navbar {
+            position: sticky;
+            top: 0;
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: 100%;
+            padding: 10px 20px;
+        }
+        .navbar a {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+            padding: 10px 20px;
+        }
+        .image-text {
+            width: 100%;
+            height: 220px;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: black;
+            font-size: 2em;
+            font-family: monospace;
+            text-align: center;
+        }
+        /* main content */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .trending {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 20px 0;
+            margin: 0 20px;
+        }
+        .trending .card {
+            display: inline-block;
+            width: 250px;
+            height: 370px;
+            margin-right: 15px;
+            box-sizing: border-box;
+            white-space: normal;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+        .whats-new {
+            padding: 20px 0;
+            white-space: nowrap;
+        }
+        .whats-new .card {
+            width: 250px;
+            height: 370px;
+            margin-right: 15px;
+            white-space: normal;
+            box-sizing: border-box;
+            padding: 0 20px;
+        }
+        .whats-new .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Create a responsive grid */
+        }
+        /* posts content */
+        .card {
+            background-image: 
+                linear-gradient(rgba(238, 232, 170, 0.4), 
+                rgba(238, 232, 170, 0.4)),
+                url('https://images.rawpixel.com/image_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjgwNS1rdWwtMDguanBn.jpg');
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-container {
+            gap: 15px;
+            padding: 5 10px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 0.8rem;
+            margin-left: 50px;
+            margin-right: 50px;
+            margin-bottom: 50px;
+        }
+        .card a {
+            color: #333;
+            text-decoration: none;
+        }
+        .card a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .card-img {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            width: 100%;
+            height: 120px;
+            margin-top: 20px;
+        }
+        .card-img img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            padding: 5px 10px;
+        }
+        .card-author {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+            padding: 5px 10px;
+        }
+        .card-content {
+            font-size: 0.9rem;
+            color: #333;
+            padding: 5px 10px;
+        }
+        .footer-container {
+            background: #333;
+            padding: 10px;
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+            bottom: 0;
+            left: 0;
+            position: relative;
+            width: 100%;
+        }
+        h4 {
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 20px;
+        }
+    </style>
+    <title>HOME | WriteWander</title>
+  </head>
+
+  <body>
+    <div class="header"><h2>WriteWander</h2></div>
+    <div class="navbar">
+        <a href="/search">Search</a>
+        <a href="/discuss">Discuss</a>
+        <a href="/">Home</a>
+        <a href="/create">Create</a>
+        <a href="/manage">Manage</a>
+        <a href="/login">Login</a>
+    </div>
+    
+    <div class="image-text" style="background-image: url('https://images.rawpixel.com/image_social_square/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjgwNS1rdWwtMDguanBn.jpg')">
+    <p class="memo"><strong class="strong">WriteWander.</strong> Publish your thoughts, stories, and ideas_</p></div>
+
+    <div id="root"></div>
+    
+            <h3>Most Viewed!</h3>
+        <div class="trending">
+            <div id="popular-posts" class="card-container">
+                {% for post in popular_posts %}
+                <div class="card">
+                    <a href="/id/{{ post.id }}"> <!-- flask route to each post's page -->
+                        <div class="card-img">
+                            <img src="https://source.unsplash.com/featured/?{{ post.title | urlencode }}">
+                        </div>
+                        <div class="card-title">{{ post.title }}</div>
+                        <div class="card-author">by: {{ post.author }}</div>
+                        <div class="card-content">
+                            <p>{{ post.views }} views</p><br>
+                            {{ post.content | truncate(100) }} <!-- limit to 100 chars -->
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>            
+        </div>
+
+            <h3>What's New?</h3>
+        <div class="whats-new">
+            <div id="recent-posts" class="card-container">
+                {% for post in recent_posts %}
+                <div class="card">
+                    <a href="/id/{{ post.id }}"> <!-- flask route to each post's page -->
+                        <div class="card-img">
+                            <img src="https://source.unsplash.com/featured/?{{ post.title | urlencode }}">
+                        </div>
+                        <div class="card-title">{{ post.title }}</div>
+                        <div class="card-author">by: {{ post.author }}</div>
+                        <div class="card-content">
+                            <p>{{ post.views }} views</p><br>
+                            {{ post.content | truncate(100) }} <!-- limit to 100 chars -->
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>            
+        </div>
+  
+    <div class="footer-container">
+        <h4>
+             © 2024, WriteWander
+        </h4>
+    </div>
+
+    <script>
+        // Randomize Color Gradients for Card Backgrounds -- varies on reload
+        function getRandomInt(min = 128, max = 255) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        function getRandGradient() {
+            const color1 = `rgba(${getRandomInt()}, ${getRandomInt()}, ${getRandomInt()}, 0.4)`;
+            const color2 = `rgba(${getRandomInt()}, ${getRandomInt()}, ${getRandomInt()}, 0.4)`;
+            return `linear-gradient(${color1}, ${color2})`;
+        }
+        function colorCard() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const randGrad = getRandGradient();
+                const currentBgd = getComputedStyle(card).backgroundImage;
+                card.style.backgroundImage = `${randGrad}, ${currentBgd}`;
+            });
+        }
+        window.onload = colorCard;
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            padding: 30px;
+            font-size: 2rem;
+            text-align: center;
+            background: white;
+        }
+        h3 {
+            font-size: 1.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 20px;
+        }
+        p {
+            font-weight: 200;
+            color: #00008B;
+        }
+        .footer-container {
+            background: #333;
+            padding: 10px;
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+            bottom: 0;
+            left: 0;
+            position: relative;
+            width: 100%;
+        }
+        h4 {
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 20px;
+        }
+        /* General Styles */
+        body {
+            font-family: monospace;
+            background-image:
+                linear-gradient(rgba(243, 239, 223, 0.3), 
+                rgba(248, 245, 243, 0.9)),
+                url('https://cdn4.vectorstock.com/i/1000x1000/16/18/background-speech-bubbles-vector-3331618.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 105vh;
+            overflow: auto;
+            color: #333;
+            padding-top: 20px; /* Height of navbar plus some extra space */
+        }
+        .card-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            padding: 5px 10px;
+            color: #E60026;
+        }
+        .card-content {
+            font-size: 1.0rem;
+            color: #333;
+            padding: 5px 10px;
+            color: #191970;
+        }
+
+        .discuss-container {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 1200px; /* Increase max-width for more space */
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            background-color: #f0f0f0;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #007BFF;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #e7e7e7;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .discuss-content {
+            text-decoration: none;
+        }
+
+        .posts-column {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 100%;
+            text-decoration: none;
+        }
+
+        .post {
+            background-color: rgba(255, 255, 255, 0.7); /* Light background for bubble effect */
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 50px; /* More rounded corners for bubble effect */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slightly larger shadow for depth */
+            width: 48%; /* Two posts per row with space between */
+            box-sizing: border-box;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .post:hover {
+            transform: translateY(-10px); /* Slight lift on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
+        }
+        
+        .comments-section {
+            width: 70%; /* Adjust width as needed */
+            padding: 20px;
+        }
+
+        .comments-list {
+            list-style-type: none;
+            padding: 0;
+            align-items: center;
+        }
+
+        .comment-item {
+            background-color: #e9e9e9; /* Lighter background for contrast */
+            padding: 10px;
+            margin: 8px 0;
+            border-left: 5px solid #007BFF; /* Add a bar to the left for visual appeal */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        }
+
+        /* Input field and button styles */
+        .input-field, .submit-button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%; /* Full-width inputs */
+            box-sizing: border-box; /* Include padding and border in the element's width */
+        }
+
+        .input-field {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .submit-button {
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Handling the loading indicator */
+        .loading-message {
+            color: #888;
+            font-style: italic;
+        }
+
+        /* Error messages style */
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        /* Logged out message */
+        .logged-out-message {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+
+        h1 {
+            font-size: 24px; /* Larger size for the title */
+            color: #333; /* Darker color for better visibility */
+            margin-bottom: 20px; /* Add more space below the header */
+        }
+
+        @media (max-width: 768px) {
+            .discuss-container {
+                padding: 10px;
+                max-width: 95%; /* Full width on smaller screens */
+            }
+            .input-field, .submit-button {
+                max-width: 100%; /* Adjusts to container width */
+            }
+            .posts-column {
+                flex-direction: column;
+            }
+            .post {
+                width: 100%; /* Full width on smaller screens */
+            }
+        }
+
+        /* Styles for the PostComments component */
+        .post-comments-container {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .post-comments-container .post {
+            background-color: rgb(92, 133, 130);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        }
+
+        .post-comments-container .comments-section {
+            width: 100%;
+            padding: 20px;
+        }
+
+        /* Create form styles */
+        .create-root {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .create-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .create-form input,
+        .create-form textarea,
+        .create-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .create-form select {
+            font-family: monospace; /* Set font for select element */
+        }
+
+        .create-form input[type="submit"] {
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+
+    </style>
+    <title>DISCUSS | WriteWander</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <div class="header"><h2>DISCUSS</h2></div>
+    <div class="navbar">
+        <a href="/search">Search</a>
+        <a href="/discuss">Discuss</a>
+        <a href="/">Home</a>
+        <a href="/create">Create</a>
+        <a href="/manage">Manage</a>
+        <a href="/login">Login</a>
+    </div>
+    
+    <div id="discuss-content" class="discuss-content">
+            <h3>Start a Conversation!</h3>
+            <br><br>
+        <div class="posts-column">
+    {% for post in all_posts %}
+        <div class="post">
+            <a href="/id/{{ post.id }}/Comments"> <!-- flask route to each post's comments -->
+                <p>{{ post.views }} VIEWS  ||  {{ post.author }}</p>
+                <div class="card-title">{{ post.title }}</div>
+                <div class="card-content">
+                    {% if post.date is string %}
+                        {{ post.date }}
+                    {% else %}
+                        {{ post.date.strftime('%Y-%m-%d') }}
+                    {% endif %}
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+    
+        </div>
+    </div>
+
+    <div><br><br><br><br><br><br></div>
+
+    <div class="footer-container">
+        <h4>
+             © 2024, WriteWander
+        </h4>
+    </div>
+
+</body>
+</html>
