@@ -78,3 +78,26 @@ body {
 .create-form input[type="submit"]:hover {
     background-color: #555; /* Darken the button on hover */
 }
+
+.image-selection {
+    margin-bottom: 15px;
+}
+
+.image-grid {
+    display: flex;
+    gap: 10px;
+}
+
+.image-thumbnail {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.image-thumbnail.selected {
+    border-color: #007BFF;
+}

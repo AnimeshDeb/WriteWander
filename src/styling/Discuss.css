@@ -1,0 +1,70 @@
+/* General Styles */
+body {
+    font-family: monospace;
+    background-color: #f8f8f8;
+    color: #333;
+    padding-top: 20px; /* Height of navbar plus some extra space */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #007BFF;
+    padding: 10px 15px; /* Add some padding around the links */
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #e7e7e7;
+}
+
+.discuss-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.posts-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.posts-column .post {
+    background-color: white;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.posts-column .post h3 {
+    margin: 0 0 10px;
+}
+
+.posts-column .post p {
+    margin: 0 0 10px;
+}
+
+.posts-column .post .post-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.posts-column .post small {
+    display: block;
+    margin-top: 5px;
+    color: #555;
+}

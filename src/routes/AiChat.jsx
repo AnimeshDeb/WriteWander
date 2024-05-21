@@ -79,7 +79,7 @@ function AiChat() {
         </div>
       )}
       {loading && <p>Loading...</p>}
-      {showAiResponse && aiResponse && (
+      {showAiResponse && aiResponse && Array.isArray(aiResponse) && (
         <div>
           <p>AI Response:</p>
           {aiResponse.map((response, index) => (

@@ -38,9 +38,12 @@ function UserSignup() {
         fullNameRef.current.value
       );
       
-      const uid = userCredential.user.uid;
-      const docRef = doc(usersCollection, uid);
-      await setDoc(docRef, { type: "Users" }, { merge: true });
+      const uid = userCredential.user.uid;//referencing the uid of current user
+      // const docRef = doc(usersCollection, uid);//referencing the document within the Users collection
+      // await setDoc(docRef, { type: "Users" }, { merge: true });//creating a document within Users collection
+      // const commentCollectionRef=collection(docRef, "Comments");//creating a reference to the comments collection
+      // await setDoc(doc(commentCollectionRef));//creating a document within comments collection
+      
       
       if (imageUpload) {
         await uploadImage(uid);
