@@ -1,0 +1,100 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+    padding: 20px;
+}
+
+/* Container for AiChat */
+.ai-chat-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Toggle Dropdown Button */
+.toggle-dropdown-btn {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.toggle-dropdown-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Dropdown Content */
+.dropdown-content {
+    margin-top: 20px;
+}
+
+.dropdown-content button {
+    display: block;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content button:hover {
+    background-color: #218838;
+}
+
+.dropdown-content button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Input Container */
+.input-container {
+    margin-top: 20px;
+}
+
+.input-container p {
+    margin-bottom: 10px;
+}
+
+.input-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* Loading Text */
+.loading-text {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #ff0000;
+}
+
+/* AI Response Container */
+.ai-response-container {
+    margin-top: 20px;
+}
+
+.ai-response-container p {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}

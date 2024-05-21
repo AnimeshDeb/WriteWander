@@ -6,16 +6,16 @@ import { useAuth } from '../contexts/AuthContext';
 import '../styling/CreatePage.css';
 import Header from '../components/Header';
 import AiChat from './AiChat';
-const IMAGE_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY;
+const IMAGE_ACCESS_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
 
 const fetchRandomImages = async () => {
-    const response = await fetch(`https://api.unsplash.com/photos/random?count=2&client_id=${UNSPLASH_ACCESS_KEY}`);
+    const response = await fetch(`https://api.unsplash.com/photos/random?count=2&client_id=${IMAGE_ACCESS_KEY }`);
     const data = await response.json();
     return data;
 };
 
 const searchImages = async (query) => {
-    const response = await fetch(`https://api.unsplash.com/search/photos?query=${query}&client_id=${UNSPLASH_ACCESS_KEY}`);
+    const response = await fetch(`https://api.unsplash.com/search/photos?query=${query}&client_id=${IMAGE_ACCESS_KEY }`);
     const data = await response.json();
     return data.results.slice(0, 2); // Get only the first 2 results
 };

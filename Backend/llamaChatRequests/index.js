@@ -2,7 +2,7 @@ import LlamaAI from 'llamaai';
 import express from 'express';
 import cors from 'cors';
 
-const apiToken = 'LLAMA_TOKEN_ENTER';
+const apiToken = 'LLAMA_API_TOKEN';
 const llamaAPI = new LlamaAI(apiToken);
 
 const app = express();
