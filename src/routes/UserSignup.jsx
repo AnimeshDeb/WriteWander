@@ -39,10 +39,7 @@ function UserSignup() {
       );
       
       const uid = userCredential.user.uid;//referencing the uid of current user
-      // const docRef = doc(usersCollection, uid);//referencing the document within the Users collection
-      // await setDoc(docRef, { type: "Users" }, { merge: true });//creating a document within Users collection
-      // const commentCollectionRef=collection(docRef, "Comments");//creating a reference to the comments collection
-      // await setDoc(doc(commentCollectionRef));//creating a document within comments collection
+      
       
       
       if (imageUpload) {
@@ -135,6 +132,7 @@ function UserSignup() {
     
       <div className="relative max-w-md mx-auto mt-10">
         <div className="bg-white p-8 mb-0 border border-gray-200 rounded-lg shadow-md">
+          <h1 className="text-4x1 text-xl text-primary font-bold text-center mb-4 text-brown-500">WriteWander</h1>
           <h2 className="text-4xl text-primary font-bold text-center mb-4">
             User Sign Up
           </h2>
