@@ -1,10 +1,11 @@
-Group Project:  WriteWander | Team Members: Animesh Deb, Juana Wong, Al Shafian Bari
+Group Project:  WriteWander
+Team Members: Animesh Deb, Juana Wong, Al Shafian Bari
 
-WriteWander is a simple, blogging platform for new and upcoming writers to publish their work professionally.
+WriteWander is a simple blogging platform for new and upcoming writers to publish their thoughts, ideas, and stories. 
 
-The platform allows users to create their own blog posts, while also allowing them to use our Ai Llama Chat bot and Unsplash image generator for inspiration. The platform also has a public page where users can view each others blog posts and comment. The users is also able to view their own profile page, which displays a list of their own blog posts they have written. All in all, the styling and features are kept to a minimum so as to permit new and upcoming blog writers to gain confidence in publishing their work professionally.
+The platform allows users to create their own blog posts, while also allowing them to use our AI Llama Chat bot and Unsplash image generator for inspiration. The platform also has a public page where users can view each others blog posts and comment. Users are also able to view their own profile page, which displays a list of their own blog posts. The styling and features of WriteWander are kept to a minimum so as to permit new and upcoming blog writers to gain confidence in publishing their work professionally.
 
-Tech Stack: React.Js (Frontend), Node.js(Backend), Express.js, Llama API, Unsplash API, Firebase Database
+Tech Stack: React.Js (Frontend), Node.js (Backend), Express.js, Llama API, Unsplash API, Firebase Authentication & Firestore Database.
 
 
 Here's a short peek into our project:
@@ -37,6 +38,8 @@ After a user creates their post, the new blog also gets shown on their profile p
 
 
 
+
+We hope to implement more features in the future, to help writers bring their ideas to life and maintain their works with ease (i.e., see the wip/2 branch for examples). 
 
 
 
